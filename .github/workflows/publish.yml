@@ -48,7 +48,7 @@ jobs:
           echo "Version: $VERSION"
 
       - name: Update pom.xml version
-        run: mvn versions:set -DnewVersion=${{ steps.version.outputs.version }} -DgenerateBackupPoms=false
+        run: mvn versions:set "-DnewVersion=${{ steps.version.outputs.version }}" -DgenerateBackupPoms=false
 
       - name: Run tests
         run: mvn -B test
@@ -85,7 +85,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update pom.xml version
-        run: mvn versions:set -DnewVersion=${{ needs.build.outputs.version }} -DgenerateBackupPoms=false
+        run: mvn versions:set "-DnewVersion=${{ needs.build.outputs.version }}" -DgenerateBackupPoms=false
 
       - name: Build JAR
         run: mvn -B package -DskipTests
