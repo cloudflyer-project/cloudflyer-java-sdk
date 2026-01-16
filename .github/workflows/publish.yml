@@ -96,8 +96,7 @@ jobs:
             --no-fallback `
             --enable-url-protocols=http,https `
             -H:+ReportExceptionStackTraces `
-            -H:Name=cfsolver `
-            -o cfsolver.exe
+            -o cfsolver
         shell: pwsh
 
       - name: Upload EXE artifact
@@ -106,6 +105,7 @@ jobs:
           name: exe-artifacts
           path: cfsolver.exe
           retention-days: 7
+          if-no-files-found: error
 
   release:
     name: Create Release Draft
