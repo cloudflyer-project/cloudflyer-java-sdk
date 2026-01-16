@@ -6,18 +6,22 @@ import site.zetx.cloudflyer.exceptions.CFSolverException;
 /**
  * Example: Solve Cloudflare Turnstile using cfsolver SDK.
  *
- * This script demonstrates how to use the CloudflareSolver to solve
- * Turnstile challenges and obtain the token.
+ * <p>This script demonstrates how to use the CloudflareSolver to solve
+ * Turnstile challenges and obtain the token.</p>
  *
- * Usage:
+ * <p>Usage:</p>
+ * <pre>
  *     mvn compile
  *     set CLOUDFLYER_API_KEY=your_api_key
  *     mvn exec:java -Dexec.mainClass="site.zetx.cloudflyer.examples.SdkTurnstile"
+ * </pre>
  *
- * Options:
- *     --proxy <url>       HTTP proxy for direct requests and LinkSocks upstream
- *     --api-proxy <url>   HTTP proxy for API requests (defaults to --proxy)
+ * <p>Options:</p>
+ * <pre>
+ *     --proxy URL         HTTP proxy for direct requests and LinkSocks upstream
+ *     --api-proxy URL     HTTP proxy for API requests (defaults to --proxy)
  *     --no-linksocks      Disable LinkSocks (not recommended)
+ * </pre>
  */
 public class SdkTurnstile {
 

@@ -7,19 +7,23 @@ import site.zetx.cloudflyer.exceptions.CFSolverException;
 /**
  * Example: Solve Cloudflare Challenge using cfsolver SDK.
  *
- * This script demonstrates how to use the CloudflareSolver to bypass
- * Cloudflare's challenge protection on the demo site.
+ * <p>This script demonstrates how to use the CloudflareSolver to bypass
+ * Cloudflare's challenge protection on the demo site.</p>
  *
- * Usage:
+ * <p>Usage:</p>
+ * <pre>
  *     mvn compile
  *     set CLOUDFLYER_API_KEY=your_api_key
  *     mvn exec:java -Dexec.mainClass="site.zetx.cloudflyer.examples.SdkChallenge"
+ * </pre>
  *
- * Options:
- *     --proxy <url>       HTTP proxy for direct requests and LinkSocks upstream
- *     --api-proxy <url>   HTTP proxy for API requests (defaults to --proxy)
+ * <p>Options:</p>
+ * <pre>
+ *     --proxy URL         HTTP proxy for direct requests and LinkSocks upstream
+ *     --api-proxy URL     HTTP proxy for API requests (defaults to --proxy)
  *     --no-linksocks      Disable LinkSocks (not recommended)
  *     --masktunnel        Enable MaskTunnel for TLS fingerprint simulation
+ * </pre>
  */
 public class SdkChallenge {
 

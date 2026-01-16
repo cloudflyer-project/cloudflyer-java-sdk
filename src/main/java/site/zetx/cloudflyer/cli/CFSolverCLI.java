@@ -7,11 +7,13 @@ import picocli.CommandLine.Option;
 /**
  * CFSolver CLI - Command line tool for CloudFlyer API.
  * 
- * Usage:
- *   cfsolver solve cloudflare <url>
- *   cfsolver solve turnstile <url> <sitekey>
- *   cfsolver request <url>
+ * <p>Usage:</p>
+ * <pre>
+ *   cfsolver solve cloudflare URL
+ *   cfsolver solve turnstile URL SITEKEY
+ *   cfsolver request URL
  *   cfsolver balance
+ * </pre>
  */
 @Command(
     name = "cfsolver",
