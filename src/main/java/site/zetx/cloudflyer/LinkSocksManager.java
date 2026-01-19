@@ -25,6 +25,7 @@ class LinkSocksManager {
     private final OkHttpClient httpClient;
     private final String upstreamProxy;
     private final ToolDownloader toolDownloader;
+    private final int startupWaitMs;
     
     private Process linksocksProcess;
     private LinkSocksConfig config;
@@ -52,10 +53,15 @@ class LinkSocksManager {
     }
     
     LinkSocksManager(String apiBase, String apiKey, OkHttpClient httpClient, String upstreamProxy) {
+        this(apiBase, apiKey, httpClient, upstreamProxy, 2000);
+    }
+    
+    LinkSocksManager(String apiBase, String apiKey, OkHttpClient httpClient, String upstreamProxy, int startupWaitMs) {
         this.apiBase = apiBase;
         this.apiKey = apiKey;
         this.httpClient = httpClient;
         this.upstreamProxy = upstreamProxy;
+        this.startupWaitMs = startupWaitMs;
         this.toolDownloader = new ToolDownloader(httpClient);
     }
     
@@ -120,7 +126,7 @@ class LinkSocksManager {
         
         // Wait for connection
         try {
-            Thread.sleep(2000);
+            Thread.sleep(startupWaitMs);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

@@ -24,19 +24,25 @@ public class MaskTunnelManager implements Closeable {
     private final int port;
     private final String upstreamProxy;
     private final ToolDownloader toolDownloader;
+    private final int startupWaitMs;
     private Process process;
     private Thread outputThread;
     private Thread errorThread;
     
     public MaskTunnelManager(String addr, int port, String upstreamProxy, OkHttpClient httpClient) {
+        this(addr, port, upstreamProxy, httpClient, 2000);
+    }
+    
+    public MaskTunnelManager(String addr, int port, String upstreamProxy, OkHttpClient httpClient, int startupWaitMs) {
         this.addr = addr;
         this.port = port;
         this.upstreamProxy = upstreamProxy;
         this.toolDownloader = new ToolDownloader(httpClient);
+        this.startupWaitMs = startupWaitMs;
     }
     
     public MaskTunnelManager(int port, String upstreamProxy, OkHttpClient httpClient) {
-        this("127.0.0.1", port, upstreamProxy, httpClient);
+        this("127.0.0.1", port, upstreamProxy, httpClient, 2000);
     }
     
     /**
@@ -70,7 +76,7 @@ public class MaskTunnelManager implements Closeable {
         
         // Wait for startup
         try {
-            Thread.sleep(2000);
+            Thread.sleep(startupWaitMs);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

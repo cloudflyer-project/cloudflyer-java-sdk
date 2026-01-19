@@ -40,6 +40,7 @@ public class CloudflareSolver implements AutoCloseable {
     private final boolean solve;
     private final boolean onChallenge;
     private final boolean usePolling;
+    private final int pollingInterval;
     private final int timeout;
     private final String proxy;
     private final boolean useLinkSocks;
@@ -71,6 +72,7 @@ public class CloudflareSolver implements AutoCloseable {
         this.solve = builder.solve;
         this.onChallenge = builder.onChallenge;
         this.usePolling = builder.usePolling;
+        this.pollingInterval = builder.pollingInterval;
         this.timeout = builder.timeout;
         this.proxy = builder.proxy;
         this.useLinkSocks = builder.useLinkSocks;
@@ -520,7 +522,7 @@ public class CloudflareSolver implements AutoCloseable {
             try (okhttp3.Response response = pollClient.newCall(request).execute()) {
                 if (response.code() != 200) {
                     if (usePolling) {
-                        Thread.sleep(2000);
+                        Thread.sleep(pollingInterval);
                     }
                     continue;
                 }
@@ -531,7 +533,7 @@ public class CloudflareSolver implements AutoCloseable {
                 
                 if ("processing".equals(status)) {
                     if (usePolling) {
-                        Thread.sleep(2000);
+                        Thread.sleep(pollingInterval);
                     }
                     continue;
                 }
@@ -567,7 +569,7 @@ public class CloudflareSolver implements AutoCloseable {
             } catch (IOException e) {
                 if (usePolling) {
                     try {
-                        Thread.sleep(2000);
+                        Thread.sleep(pollingInterval);
                     } catch (InterruptedException ie) {
                         Thread.currentThread().interrupt();
                     }
@@ -930,6 +932,7 @@ public class CloudflareSolver implements AutoCloseable {
         private boolean solve = true;
         private boolean onChallenge = true;
         private boolean usePolling = false;
+        private int pollingInterval = 2000;
         private int timeout = 30000;
         private String proxy;
         private okhttp3.Authenticator proxyAuth;
@@ -983,6 +986,17 @@ public class CloudflareSolver implements AutoCloseable {
          */
         public Builder usePolling(boolean usePolling) {
             this.usePolling = usePolling;
+            return this;
+        }
+        
+        /**
+         * Set the interval between polling attempts when usePolling is true.
+         * 
+         * @param pollingInterval interval in milliseconds (default: 2000)
+         * @return this builder
+         */
+        public Builder pollingInterval(int pollingInterval) {
+            this.pollingInterval = pollingInterval;
             return this;
         }
         
