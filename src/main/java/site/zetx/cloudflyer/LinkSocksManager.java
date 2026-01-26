@@ -74,7 +74,7 @@ class LinkSocksManager {
         }
         
         Request.Builder requestBuilder = new Request.Builder()
-                .url(apiBase + "/api/linksocks/getLinkSocks")
+                .url(apiBase + "/getLinkSocks")
                 .post(RequestBody.create("", MediaType.get("application/json")));
         
         if (apiKey != null && !apiKey.isEmpty()) {
